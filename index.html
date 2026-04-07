@@ -35,10 +35,12 @@
       color: #eaf4ff;
     }
 
-    /* 顶部美女图（增强清晰度 + 氛围渐变） */
+    /* 顶部美女图（自动适配高度） */
     header {
       width: 100%;
-      height: 180px;
+      height: 22vh;        /* 自动适配屏幕高度 */
+      min-height: 110px;   /* 最小高度 */
+      max-height: 160px;   /* 最大高度 */
       overflow: hidden;
       position: relative;
       border-bottom: 1px solid rgba(255,255,255,0.15);
@@ -141,7 +143,7 @@
 </head>
 <body>
 
-  <!-- 顶部美女图（无文字） -->
+  <!-- 顶部美女图 -->
   <header>
     <img src="header.jpeg" alt="header image">
     <div class="header-mask"></div>
