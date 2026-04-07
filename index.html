@@ -35,16 +35,34 @@
       color: #eaf4ff;
     }
 
+    /* 顶部美女图（增强清晰度 + 氛围渐变） */
     header {
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #9bd1ff;
-      text-shadow: 0 0 8px #4fa3ff;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* 清晰增强：亮度 + 对比度 + 饱和度 */
+      filter: brightness(1.08) contrast(1.12) saturate(1.18);
+    }
+
+    /* 氛围渐变遮罩（让图片更高级） */
+    .header-mask {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.35),
+        rgba(0,0,0,0.15),
+        rgba(0,0,0,0)
+      );
+      pointer-events: none;
     }
 
     #editor { flex: 1; }
@@ -75,7 +93,7 @@
       gap: 10px;
     }
 
-    /* --- 跑马灯（彩色渐变 + 发光 + 闪烁） --- */
+    /* 跑马灯（彩色渐变 + 发光 + 闪烁） */
     .marquee {
       width: 100%;
       overflow: hidden;
@@ -124,9 +142,11 @@
   </style>
 </head>
 <body>
+
+  <!-- 顶部美女图（增强 + 氛围渐变） -->
   <header>
-    <h1>蓝光代码编辑器 · 文件版</h1>
-    <span id="status">未打开文件</span>
+    <img src="header.jpg" alt="header image">
+    <div class="header-mask"></div>
   </header>
 
   <textarea id="editor"></textarea>
@@ -157,7 +177,6 @@
 
   <script>
     let fileHandle = null;
-    const status = document.getElementById("status");
 
     const cm = CodeMirror.fromTextArea(document.getElementById("editor"), {
       lineNumbers: true,
@@ -176,7 +195,6 @@
 
     if (isPWA) {
       document.getElementById("fileButtons").style.display = "none";
-      status.textContent = "PWA 模式：文件功能已隐藏";
     }
 
     // 打开文件
@@ -186,10 +204,7 @@
         const file = await fileHandle.getFile();
         const text = await file.text();
         cm.setValue(text);
-        status.textContent = "已打开：" + file.name;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
 
     // 保存文件
@@ -201,7 +216,6 @@
       const writable = await fileHandle.createWritable();
       await writable.write(cm.getValue());
       await writable.close();
-      status.textContent = "已保存";
     };
 
     // 另存为
@@ -211,10 +225,7 @@
         const writable = await newHandle.createWritable();
         await writable.write(cm.getValue());
         await writable.close();
-        status.textContent = "已另存为";
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
   </script>
 </body>
