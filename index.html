@@ -2,62 +2,21 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>蓝光代码编辑器 · 炫酷版</title>
+  <title>蓝光代码编辑器 · 文件版</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0d1b3d" />
 
-  <!-- CodeMirror 核心 -->
+  <!-- CodeMirror -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css">
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
 
-  <!-- 主题：VS Code Dark+ -->
+  <!-- 主题 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/dracula.min.css">
 
-  <!-- 多语言支持 -->
+  <!-- 多语言 -->
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/python/python.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/clike/clike.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/markdown/markdown.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/xml/xml.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/json/json.min.js"></script>
-
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: radial-gradient(circle at top, #1a2a6c, #1e3c72, #0d1b3d);
-      font-family: "JetBrains Mono", monospace;
-      color: #eaf4ff;
-    }
-
-    header {
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #9bd1ff;
-      text-shadow: 0 0 8px #4fa3ff;
-    }
-
-    #editor { flex: 1; }
-
-    footer {
-      padding: 10px 16px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #9bd1ff;
-    }
-
-    select, button {
-      padding
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.min.js">
