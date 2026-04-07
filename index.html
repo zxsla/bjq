@@ -2,53 +2,40 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>蓝光笔记 Pro</title>
+  <title>蓝光代码编辑器</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#5f8cff" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.min.js"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
+      margin: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
-      background: radial-gradient(circle at top, #c8ecff 0%, #6fa8ff 40%, #0b1535 100%);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
+      background: radial-gradient(circle at top, #b9e6ff 0%, #5f8cff 40%, #0b1535 100%);
+      font-family: "JetBrains Mono", monospace;
       color: #eaf4ff;
-      overflow: hidden;
     }
     header {
-      padding: 12px 16px;
-      backdrop-filter: blur(14px);
-      background: rgba(10, 20, 60, 0.45);
-      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding: 10px 14px;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 20, 60, 0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    header h1 { font-size: 17px; font-weight: 600; }
-    header span { font-size: 12px; opacity: .8; }
-
-    #editor {
-      flex: 1;
-      width: 100%;
-      padding: 16px;
-      font-size: 16px;
-      line-height: 1.7;
-      border: none;
-      outline: none;
-      resize: none;
-      background: rgba(5, 15, 45, 0.55);
-      color: #eaf4ff;
-      border-radius: 16px;
-      margin: 14px;
-      box-shadow: 0 18px 45px rgba(0,0,0,.45);
-      -webkit-overflow-scrolling: touch;
-    }
-
+    header h1 { font-size: 16px; font-weight: 600; }
+    header span { font-size: 11px; opacity: 0.8; }
+    #editor { flex: 1; }
     footer {
-      padding: 8px 14px 12px;
-      font-size: 12px;
+      padding: 6px 12px 10px;
+      font-size: 11px;
       color: rgba(220,235,255,0.75);
       backdrop-filter: blur(10px);
       background: linear-gradient(to top, rgba(3,8,30,0.9), rgba(3,8,30,0));
@@ -56,52 +43,58 @@
       justify-content: space-between;
       align-items: center;
     }
-
     button {
       border: none;
       border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 12px;
+      padding: 6px 12px;
+      font-size: 11px;
       cursor: pointer;
       color: #061020;
       background: linear-gradient(135deg, #9be2ff, #6fb5ff);
-      box-shadow: 0 4px 12px rgba(0,0,0,.35);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>蓝光笔记 Pro</h1>
+    <h1>蓝光代码编辑器</h1>
     <span id="status">已自动保存</span>
   </header>
 
-  <textarea id="editor" placeholder="开始记录你的灵感…（支持离线 & 主屏幕 App）"></textarea>
+  <textarea id="editor"></textarea>
 
   <footer>
-    <span>本地离线保存</span>
+    <span>支持离线保存与安装</span>
     <button id="clearBtn">清空</button>
   </footer>
 
   <script>
-    const KEY = "cool_blue_editor_pro_v1";
-    const editor = document.getElementById("editor");
+    const KEY = "blue_code_editor_v1";
     const status = document.getElementById("status");
 
-    editor.value = localStorage.getItem(KEY) || "";
+    const cm = CodeMirror.fromTextArea(document.getElementById("editor"), {
+      lineNumbers: true,
+      mode: "javascript",
+      theme: "default",
+      tabSize: 2,
+      lineWrapping: true
+    });
+
+    cm.setValue(localStorage.getItem(KEY) || "// 欢迎使用蓝光代码编辑器\\n// 支持 HTML / CSS / JS 编辑\\n");
 
     let timer = null;
-    editor.addEventListener("input", () => {
+    cm.on("change", () => {
       status.textContent = "保存中…";
       clearTimeout(timer);
       timer = setTimeout(() => {
-        localStorage.setItem(KEY, editor.value);
+        localStorage.setItem(KEY, cm.getValue());
         status.textContent = "已自动保存";
       }, 400);
     });
 
     document.getElementById("clearBtn").onclick = () => {
       if (confirm("确定清空所有内容？")) {
-        editor.value = "";
+        cm.setValue("");
         localStorage.removeItem(KEY);
         status.textContent = "已清空";
       }
