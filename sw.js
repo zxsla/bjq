@@ -1,4 +1,4 @@
-const CACHE = "blue-note-pro-v1";
+const CACHE = "blue-code-editor-v1";
 const FILES = [
   "/",
   "/index.html",
