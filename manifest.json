@@ -1,6 +1,6 @@
 {
   "name": "蓝光代码编辑器",
-  "short_name": "蓝光编辑器",
+  "short_name": "代码编辑器",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0b1535",
