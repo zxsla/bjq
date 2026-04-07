@@ -2,19 +2,27 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>蓝光代码编辑器</title>
+  <title>蓝光代码编辑器 · 炫酷版</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#5f8cff" />
+  <meta name="theme-color" content="#0d1b3d" />
 
   <!-- CodeMirror 核心 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css">
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
 
-  <!-- 常用语法高亮 -->
+  <!-- 主题：VS Code Dark+ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/dracula.min.css">
+
+  <!-- 多语言支持 -->
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/python/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/clike/clike.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/markdown/markdown.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/json/json.min.js"></script>
 
   <style>
     body {
@@ -22,87 +30,34 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
-      background: #0b1535;
-      color: #eaf4ff;
+      background: radial-gradient(circle at top, #1a2a6c, #1e3c72, #0d1b3d);
       font-family: "JetBrains Mono", monospace;
+      color: #eaf4ff;
     }
+
     header {
-      padding: 10px 14px;
+      padding: 12px 16px;
       background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    header span { font-size: 12px; opacity: .8; }
-    #editor { flex: 1; }
-    footer {
-      padding: 8px 12px;
-      font-size: 12px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: #9bd1ff;
+      text-shadow: 0 0 8px #4fa3ff;
     }
-    button {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      background: #6fb5ff;
-      color: #061020;
-      font-size: 12px;
+
+    #editor { flex: 1; }
+
+    footer {
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #9bd1ff;
     }
-  </style>
-</head>
-<body>
-  <header>
-    <h1 style="font-size:16px;">蓝光代码编辑器</h1>
-    <span id="status">已自动保存</span>
-  </header>
 
-  <textarea id="editor"></textarea>
-
-  <footer>
-    <span>离线可用 · 自动保存</span>
-    <button id="clearBtn">清空</button>
-  </footer>
-
-  <script>
-    const KEY = "blue_code_editor_v1";
-    const status = document.getElementById("status");
-
-    const cm = CodeMirror.fromTextArea(document.getElementById("editor"), {
-      lineNumbers: true,
-      mode: "javascript",
-      tabSize: 2,
-      lineWrapping: true
-    });
-
-    cm.setValue(localStorage.getItem(KEY) || "// 蓝光代码编辑器\n");
-
-    let timer = null;
-    cm.on("change", () => {
-      status.textContent = "保存中…";
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        localStorage.setItem(KEY, cm.getValue());
-        status.textContent = "已自动保存";
-      }, 400);
-    });
-
-    document.getElementById("clearBtn").onclick = () => {
-      if (confirm("确定清空所有内容？")) {
-        cm.setValue("");
-        localStorage.removeItem(KEY);
-        status.textContent = "已清空";
-      }
-    };
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js");
-    }
-  </script>
-</body>
-</html>
+    select, button {
+      padding
