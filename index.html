@@ -48,11 +48,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* 清晰增强：亮度 + 对比度 + 饱和度 */
       filter: brightness(1.08) contrast(1.12) saturate(1.18);
     }
 
-    /* 氛围渐变遮罩（让图片更高级） */
     .header-mask {
       position: absolute;
       inset: 0;
@@ -143,9 +141,9 @@
 </head>
 <body>
 
-  <!-- 顶部美女图（增强 + 氛围渐变） -->
+  <!-- 顶部美女图（无文字） -->
   <header>
-    <img src="header.jpg" alt="header image">
+    <img src="your-image.jpeg" alt="header image">
     <div class="header-mask"></div>
   </header>
 
@@ -170,7 +168,7 @@
     </div>
   </footer>
 
-  <!-- 跑马灯 -->
+  <!-- 跑马灯（保留你的文字） -->
   <div class="marquee">
     <span>白嫖军团 ♡｡eternity.✨</span>
   </div>
